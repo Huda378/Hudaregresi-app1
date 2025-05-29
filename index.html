@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d6efd" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192x192.png" />
+  <link rel="icon" type="image/png" href="icon-192x192.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <title>Analisis Regresi Linear</title>
 </head>
@@ -114,7 +114,7 @@
 
     document.getElementById("hasilRegresi").textContent = `Persamaan: Y = ${slope.toFixed(2)}X + ${intercept.toFixed(2)}`;
     document.getElementById("hasilKorelasi").textContent = `Koefisien Korelasi (r): ${korelasi.toFixed(4)}`;
-    document.getElementById("hasilDeterm").textContent = `Koefisien Determinasi (r²): ${(determinasi * 100).toFixed(2)}%`;
+    document.getElementById("hasilDeterm").textContent = `Koefisien Determinasi (r²): ${(determinsi * 100).toFixed(2)}%`;
 
     const ctx = document.getElementById("chart").getContext("2d");
     if (window.myChart) window.myChart.destroy();
@@ -135,7 +135,6 @@
             label: "Data Asli",
             data: x.map((xi, i) => ({ x: xi, y: y[i] })),
             backgroundColor: 'blue',
-            borderColor: 'blue',
             pointRadius: 5
           },
           {
@@ -172,7 +171,7 @@
     });
   }
 
-  // Service Worker untuk PWA
+  // Daftarkan Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js')
