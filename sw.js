@@ -1,4 +1,3 @@
-// sw.js
 const CACHE_NAME = 'regresi-cache-v1';
 const urlsToCache = [
   './',
