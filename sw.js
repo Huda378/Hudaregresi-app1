@@ -9,6 +9,7 @@ const urlsToCache = [
   'https://cdn.jsdelivr.net/npm/chart.js'
 ];
 
+// Proses instalasi service worker dan caching file yang dibutuhkan
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -18,21 +19,23 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
+// Proses aktivasi dan penghapusan cache lama
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames =>
-      Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(name => {
+          if (name !== CACHE_NAME) {
+            return caches.delete(name);
           }
         })
-      )
-    )
+      );
+    })
   );
   self.clients.claim();
 });
 
+// Intersepsi request dan kembalikan dari cache jika tersedia
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
@@ -40,26 +43,3 @@ self.addEventListener('fetch', event => {
     })
   );
 });
-
-// Fungsi interpretasi korelasi
-function interpretasiKorelasi(r) {
-  if (r === 0) return "Tidak ada korelasi";
-  const absR = Math.abs(r);
-  if ((r > -0.3 && r < 0) || (r > 0 && r <= 0.3)) return "Lemah";
-  else if ((r >= -0.7 && r <= -0.3) || (r > 0.3 && r <= 0.7)) return "Sedang/Cukup";
-  else if ((r >= -1 && r < -0.7) || (r > 0.7 && r < 1)) return "Kuat";
-  else if (r === -1 || r === 1) return "Sempurna";
-  else return "Tidak terdefinisi";
-}
-
-// Fungsi interpretasi determinasi
-function interpretasiDeterminan(r2) {
-  if (r2 === 0) return "Tidak ada korelasi";
-  else if (r2 > 0 && r2 <= 0.25) return "Sangat lemah";
-  else if (r2 > 0.25 && r2 < 0.5) return "Lemah";
-  else if (r2 >= 0.5 && r2 < 0.75) return "Sedang";
-  else if (r2 >= 0.75 && r2 < 0.9) return "Kuat";
-  else if (r2 >= 0.9 && r2 < 1) return "Sangat kuat";
-  else if (r2 === 1) return "Sempurna";
-  else return "Tidak terdefinisi";
-}
