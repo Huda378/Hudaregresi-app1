@@ -54,9 +54,9 @@
       <h5>Hasil Analisis</h5>
       <p id="hasilRegresi"></p>
       <p id="hasilKorelasi"></p>
-      <p id="interpretasiKorelasi"></p>
+      <p><strong>Interpretasi Korelasi:</strong> <span id="interpretasiKorelasi"></span></p>
       <p id="hasilDeterm"></p>
-      <p id="interpretasiDeterm"></p>
+      <p><strong>Interpretasi Determinasi:</strong> <span id="interpretasiDeterm"></span></p>
     </div>
   </div>
 
@@ -135,9 +135,9 @@
 
     document.getElementById("hasilRegresi").textContent = `Persamaan: Y = ${slope.toFixed(2)}X + ${intercept.toFixed(2)}`;
     document.getElementById("hasilKorelasi").textContent = `Koefisien Korelasi (r): ${korelasi.toFixed(4)}`;
-    document.getElementById("interpretasiKorelasi").textContent = `Tingkat Hubungan Korelasi: ${interpretasiKorelasi(korelasi)}`;
+    document.getElementById("interpretasiKorelasi").textContent = interpretasiKorelasi(korelasi);
     document.getElementById("hasilDeterm").textContent = `Koefisien Determinasi (r²): ${(determinasi * 100).toFixed(2)}%`;
-    document.getElementById("interpretasiDeterm").textContent = `Tingkat Hubungan Determinasi: ${interpretasiDeterm(determinasi)}`;
+    document.getElementById("interpretasiDeterm").textContent = interpretasiDeterm(determinasi);
 
     const ctx = document.getElementById("chart").getContext("2d");
     if (window.myChart) window.myChart.destroy();
