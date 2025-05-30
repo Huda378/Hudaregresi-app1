@@ -64,6 +64,7 @@
     <div class="card-body">
       <h5>Grafik Regresi</h5>
       <canvas id="chart"></canvas>
+      <button class="btn btn-success mt-3" onclick="unduhGrafik()">Unduh Grafik</button>
     </div>
   </div>
 
@@ -192,6 +193,14 @@
         }
       }
     });
+  }
+
+  function unduhGrafik() {
+    const canvas = document.getElementById("chart");
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "grafik-regresi.png";
+    link.click();
   }
 
   if ('serviceWorker' in navigator) {
