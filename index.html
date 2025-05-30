@@ -54,7 +54,9 @@
       <h5>Hasil Analisis</h5>
       <p id="hasilRegresi"></p>
       <p id="hasilKorelasi"></p>
+      <p id="interpretasiKorelasi"></p>
       <p id="hasilDeterm"></p>
+      <p id="interpretasiDeterm"></p>
     </div>
   </div>
 
@@ -89,6 +91,25 @@
     document.getElementById("outputNama").textContent = "Nama: " + nama;
   }
 
+  function interpretasiKorelasi(r) {
+    const absR = Math.abs(r);
+    if (r === 0) return "Tidak ada korelasi";
+    if (absR < 0.3) return "Lemah";
+    if (absR < 0.7) return "Sedang/Cukup";
+    if (absR < 1) return "Kuat";
+    return "Sempurna";
+  }
+
+  function interpretasiDeterm(r2) {
+    if (r2 === 0) return "Tidak ada korelasi";
+    if (r2 < 0.25) return "Sangat lemah";
+    if (r2 < 0.5) return "Lemah";
+    if (r2 < 0.75) return "Sedang";
+    if (r2 < 0.9) return "Kuat";
+    if (r2 < 1) return "Sangat kuat";
+    return "Sempurna";
+  }
+
   function hitungRegresi() {
     const xInput = document.getElementById("xValues").value;
     const yInput = document.getElementById("yValues").value;
@@ -114,7 +135,9 @@
 
     document.getElementById("hasilRegresi").textContent = `Persamaan: Y = ${slope.toFixed(2)}X + ${intercept.toFixed(2)}`;
     document.getElementById("hasilKorelasi").textContent = `Koefisien Korelasi (r): ${korelasi.toFixed(4)}`;
-    document.getElementById("hasilDeterm").textContent = `Koefisien Determinasi (r²): ${(determinsi * 100).toFixed(2)}%`;
+    document.getElementById("interpretasiKorelasi").textContent = `Tingkat Hubungan Korelasi: ${interpretasiKorelasi(korelasi)}`;
+    document.getElementById("hasilDeterm").textContent = `Koefisien Determinasi (r²): ${(determinasi * 100).toFixed(2)}%`;
+    document.getElementById("interpretasiDeterm").textContent = `Tingkat Hubungan Determinasi: ${interpretasiDeterm(determinasi)}`;
 
     const ctx = document.getElementById("chart").getContext("2d");
     if (window.myChart) window.myChart.destroy();
@@ -171,7 +194,6 @@
     });
   }
 
-  // Daftarkan Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js')
